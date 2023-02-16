@@ -4,9 +4,9 @@ import { BadRequest } from "../utils/Errors.js"
 
 class GalaxyPlanetsService {
     async createPlanet(planetData) {
-        const planet = await dbContext.FindPlanet.findById(planetData.galaxyId)
-        if (!planet) {
-            throw new BadRequest('No Planet created')
+        const galaxy = await dbContext.Galaxy.findById(planetData.galaxyId)
+        if (!galaxy) {
+            throw new BadRequest('That Galaxy does not exist')
         }
         const GalaxyPlanet = await dbContext.Planet.create(planetData)
         return GalaxyPlanet

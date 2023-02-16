@@ -10,7 +10,10 @@ export class GalaxiesController extends BaseController {
         this.router
             .get('', this.getGalaxies)
             .post('', this.createGalaxies)
+            // PLANETS \\
             .get('/:galaxyId/planets', this.getGalaxyPlanets)
+            .post('/:galaxyId/planets', this.createPlanet)
+
 
     }
     async getGalaxyPlanets(req, res, next) {
@@ -44,7 +47,18 @@ export class GalaxiesController extends BaseController {
     }
 
 
+    // PLANET TINGS \\
 
+    async createPlanet(req, res, next) {
+        try {
+            let planetBody = req.body
+            planetBody.galaxyId = req.params.galaxyId
+            let planet = await galaxyPlanetsService.createPlanet(planetBody)
+            return res.send(planet)
+        } catch (error) {
+
+        }
+    }
 
 
 }
